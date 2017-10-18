@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.stip.net.dao.DateListDao">
+  <resultMap id="BaseResultMap" type="com.github.stip.net.entity.DateList">
+    <id column="dateList_date_id" jdbcType="VARCHAR" property="dateId" />
+    <result column="dateList_date_title" jdbcType="VARCHAR" property="dateTitle" />
+    <result column="dateList_remind_type" jdbcType="VARCHAR" property="remindType" />
+    <result column="dateList_repet_remind" jdbcType="VARCHAR" property="repetRemind" />
+    <result column="dateList_date_time" jdbcType="TIMESTAMP" property="dateTime" />
+    <result column="dateList_attention_date" jdbcType="VARCHAR" property="attentionDate" />
+    <result column="dateList_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="dateList_user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="dateList_open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="dateList_is_gc" jdbcType="VARCHAR" property="gc" />
+    <result column="dateList_remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dateList_remark1" jdbcType="VARCHAR" property="remark1" />
+    <result column="dateList_remark2" jdbcType="VARCHAR" property="remark2" />
+    <result column="dateList_remark3" jdbcType="VARCHAR" property="remark3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dateList.date_id as dateList_date_id, dateList.date_title as dateList_date_title, 
+    dateList.remind_type as dateList_remind_type, dateList.repet_remind as dateList_repet_remind, 
+    dateList.date_time as dateList_date_time, dateList.attention_date as dateList_attention_date, 
+    dateList.create_time as dateList_create_time, dateList.user_id as dateList_user_id, 
+    dateList.open_id as dateList_open_id, dateList.is_gc as dateList_is_gc, dateList.remark as dateList_remark, 
+    dateList.remark1 as dateList_remark1, dateList.remark2 as dateList_remark2, dateList.remark3 as dateList_remark3
+  </sql>
+  <select id="selectByExample" parameterType="com.github.stip.net.entity.DateListExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from date_list dateList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="fromRowNum != null and toRowNum >= 0">
+      limit #{fromRowNum}, #{toRowNum}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from date_list dateList
+    where dateList.date_id = #{dateId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from date_list
+    where date_id = #{dateId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.github.stip.net.entity.DateListExample">
+    delete from date_list dateList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.github.stip.net.entity.DateList">
+    insert into date_list (date_id, date_title, remind_type, 
+      repet_remind, date_time, attention_date, 
+      create_time, user_id, open_id, 
+      is_gc, remark, remark1, 
+      remark2, remark3)
+    values (#{dateId,jdbcType=VARCHAR}, #{dateTitle,jdbcType=VARCHAR}, #{remindType,jdbcType=VARCHAR}, 
+      #{repetRemind,jdbcType=VARCHAR}, #{dateTime,jdbcType=TIMESTAMP}, #{attentionDate,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{gc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.stip.net.entity.DateList">
+    insert into date_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dateId != null">
+        date_id,
+      </if>
+      <if test="dateTitle != null">
+        date_title,
+      </if>
+      <if test="remindType != null">
+        remind_type,
+      </if>
+      <if test="repetRemind != null">
+        repet_remind,
+      </if>
+      <if test="dateTime != null">
+        date_time,
+      </if>
+      <if test="attentionDate != null">
+        attention_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="gc != null">
+        is_gc,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="remark1 != null">
+        remark1,
+      </if>
+      <if test="remark2 != null">
+        remark2,
+      </if>
+      <if test="remark3 != null">
+        remark3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dateId != null">
+        #{dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateTitle != null">
+        #{dateTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="remindType != null">
+        #{remindType,jdbcType=VARCHAR},
+      </if>
+      <if test="repetRemind != null">
+        #{repetRemind,jdbcType=VARCHAR},
+      </if>
+      <if test="dateTime != null">
+        #{dateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentionDate != null">
+        #{attentionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="gc != null">
+        #{gc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.github.stip.net.entity.DateListExample" resultType="java.lang.Long">
+    select count(*) from date_list dateList
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update date_list dateList
+    <set>
+      <if test="record.dateId != null">
+        dateList.date_id = #{record.dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateTitle != null">
+        dateList.date_title = #{record.dateTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindType != null">
+        dateList.remind_type = #{record.remindType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repetRemind != null">
+        dateList.repet_remind = #{record.repetRemind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateTime != null">
+        dateList.date_time = #{record.dateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attentionDate != null">
+        dateList.attention_date = #{record.attentionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        dateList.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        dateList.user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null">
+        dateList.open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gc != null">
+        dateList.is_gc = #{record.gc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        dateList.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null">
+        dateList.remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null">
+        dateList.remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null">
+        dateList.remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update date_list dateList
+    set dateList.date_id = #{record.dateId,jdbcType=VARCHAR},
+      dateList.date_title = #{record.dateTitle,jdbcType=VARCHAR},
+      dateList.remind_type = #{record.remindType,jdbcType=VARCHAR},
+      dateList.repet_remind = #{record.repetRemind,jdbcType=VARCHAR},
+      dateList.date_time = #{record.dateTime,jdbcType=TIMESTAMP},
+      dateList.attention_date = #{record.attentionDate,jdbcType=VARCHAR},
+      dateList.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      dateList.user_id = #{record.userId,jdbcType=VARCHAR},
+      dateList.open_id = #{record.openId,jdbcType=VARCHAR},
+      dateList.is_gc = #{record.gc,jdbcType=VARCHAR},
+      dateList.remark = #{record.remark,jdbcType=VARCHAR},
+      dateList.remark1 = #{record.remark1,jdbcType=VARCHAR},
+      dateList.remark2 = #{record.remark2,jdbcType=VARCHAR},
+      dateList.remark3 = #{record.remark3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.stip.net.entity.DateList">
+    update date_list
+    <set>
+      <if test="dateTitle != null">
+        date_title = #{dateTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="remindType != null">
+        remind_type = #{remindType,jdbcType=VARCHAR},
+      </if>
+      <if test="repetRemind != null">
+        repet_remind = #{repetRemind,jdbcType=VARCHAR},
+      </if>
+      <if test="dateTime != null">
+        date_time = #{dateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentionDate != null">
+        attention_date = #{attentionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="gc != null">
+        is_gc = #{gc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null">
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null">
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where date_id = #{dateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.stip.net.entity.DateList">
+    update date_list
+    set date_title = #{dateTitle,jdbcType=VARCHAR},
+      remind_type = #{remindType,jdbcType=VARCHAR},
+      repet_remind = #{repetRemind,jdbcType=VARCHAR},
+      date_time = #{dateTime,jdbcType=TIMESTAMP},
+      attention_date = #{attentionDate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      is_gc = #{gc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR}
+    where date_id = #{dateId,jdbcType=VARCHAR}
+  </update>
+</mapper>
